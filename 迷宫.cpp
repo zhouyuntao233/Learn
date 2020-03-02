@@ -13,17 +13,20 @@ void dfs(int x,int y){
         for(int i=0;i<4;i++){
             int x_next=x+px[i];
             int y_next=y+py[i];
-            if(x_next>=1&&y_next>=1&&x_next<=ex&&y_next<=ey&&!group[x_next][y_next]&&!vis[x_next][y_next]){
-                vis[x_next][y_next]=true;
-                dfs(x_next,y_next);
-                vis[x_next][y_next]=false;
+            //如果下一个（x，y)没有越界 并且不是障碍点 并且没有访问过
+            if(x_next>=1&&y_next>=1&&x_next<=n&&y_next<=m&&!group[x_next][y_next]&&!vis[x_next][y_next]){
+                vis[x_next][y_next]=true;//将格子设为走过
+                dfs(x_next,y_next);//递归去走左边
+                vis[x_next][y_next]=false;//状态回朔 并将格子设为没走过
             }
         }
     }    
 }
 int main(){
     int t=0,X=0,Y=0;
+    //读入迷宫的行和列 以及障碍点的个数
     scanf("%d%d%d",&n,&m,&t);
+    //读入起始坐标
     scanf("%d%d%d%d",&sx,&sy,&ex,&ey);
     while(t--){
         scanf("%d%d",&X,&Y);

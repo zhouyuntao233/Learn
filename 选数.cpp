@@ -12,24 +12,17 @@ bool isprime(int a){//判断素数
 }
 
 int n,k;
-int a[25];
-long long ans;
+int a[25],flag;
 
-void dfs(int m,int sum,int startx){//最重要的递归
-//m代表现在select了多少个数
-//sum表示当前的和
-//startx表示升序排列，以免算重
-    if(m==k){//如果选完了的话
-        if(isprime(sum))//如果和是素数
-            ans++;//ans加一
-        return ;
+void dfs(int step,int sum,int cnt){
+    //递归出口
+    if(step==n||cnt==k){
+        if(isprime(sum)&&cnt==k) ++flag;
     }
-    for(int i=startx;i<n;i++)
-        dfs(m+1,sum+a[i],i+1);//递归
-        //步数要加一，和也要加
-        //升序起始值要变成i+1,以免算重
-    return ;//这一个步骤下，所有的都枚举完了
-    //直接返回去
+    else{
+        dfs(step+1,sum+a[step],cnt+1);//选这个数
+        dfs(step+1,sum,cnt);//不选这个数
+    }
 }
 
 int main(){
@@ -38,6 +31,6 @@ int main(){
     for(int i=0;i<n;i++)
         scanf("%d",&a[i]);//循环读入
     dfs(0,0,0);//调用函数
-    printf("%d\n",ans);//输出答案
+    printf("%d\n",flag);//输出答案
     return 0;//结束程序
 }
