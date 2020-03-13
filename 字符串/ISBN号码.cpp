@@ -14,7 +14,7 @@ int main(){
     }
     sum=sum%11;
     char last=s[s.length()-1];
-
+    //号码正确有两种情况 1 是数字相等 2 和为10 末尾是X
     if((sum==(last-'0'))||(sum==10 && last=='X')) cout<<"Right";
     else {
         if(sum==10)
